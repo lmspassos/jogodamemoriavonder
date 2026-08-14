@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Jogo da Memória Vonder</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="app-frame">
+
+  <!-- TELA 1: ABERTURA -->
+  <section id="screen-intro" class="screen active" style="background-image:url('assets/screens/abertura.png');">
+    <button id="btn-start" class="hit-area" aria-label="Vamos jogar!"></button>
+  </section>
+
+  <!-- TELA 2: JOGO -->
+  <section id="screen-game" class="screen">
+    <div class="timer-pill">
+      <span class="timer-icon">⏱</span>
+      <span id="timer-text">00:30</span>
+    </div>
+
+    <div id="board" class="board"></div>
+
+    <div class="stripe-bar"></div>
+    <img class="footer-logo" src="assets/screens/footer_logo.png" alt="É bom trabalhar com vonder">
+  </section>
+
+  <!-- TELA 3: VITÓRIA -->
+  <section id="screen-win" class="screen" style="background-image:url('assets/screens/ganhou.png');">
+    <button id="btn-finish-win" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+  <!-- TELA 4: DERROTA -->
+  <section id="screen-lose" class="screen" style="background-image:url('assets/screens/perdeu.png');">
+    <button id="btn-finish-lose" class="hit-area" aria-label="Finalizar"></button>
+  </section>
+
+</div>
+<script src="script.js"></script>
+</body>
+</html>
