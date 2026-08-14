@@ -1,14 +1,16 @@
 (() => {
-  const WORDS = [
+  const WORD_POOL = [
     'FURADEIRA', 'PARAFUSADEIRA', 'CHAVE PHILIPS', 'MARTELO', 'TRENA',
     'ESQUADRO', 'NÍVEL', 'ALICATE', 'LIXADEIRA', 'SERRA',
     'FITA MÉTRICA', 'ESTILETE', 'BOLSA', 'FERRAMENTA', 'GRAMPOS'
   ];
-  const GRID_SIZE = 13;
-  const GAME_SECONDS = 30;
+  const GRID_SIZE = 10;
+  const WORDS_PER_GAME = 5;
+  const GAME_SECONDS = 60;
+  // Regras fáceis: só da esquerda p/ direita, de cima p/ baixo,
+  // ou na diagonal descendente (\) — sem palavras ao contrário nem diagonal invertida (/).
   const DIRECTIONS = [
-    [0, 1], [0, -1], [1, 0], [-1, 0],
-    [1, 1], [1, -1], [-1, 1], [-1, -1]
+    [0, 1], [1, 0], [1, 1]
   ];
 
   const screens = {
@@ -28,6 +30,11 @@
   let placements = new Map(); // normalized word -> path
   let foundWords = new Set();
   let cellEls = [];
+  let currentWords = [];
+  let anchor = null;
+  let dragStarted = false;
+  let moved = false;
+  let currentPath = [];
 
   function showScreen(name) {
     Object.values(screens).forEach(s => s.classList.remove('active'));
@@ -46,6 +53,16 @@
   function randomLetter() {
     const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
     return letters[randomInt(letters.length)];
+  }
+
+  function pickRoundWords() {
+    const eligible = WORD_POOL.filter(w => normalize(w).length <= GRID_SIZE);
+    const shuffled = [...eligible];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = randomInt(i + 1);
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    return shuffled.slice(0, WORDS_PER_GAME);
   }
 
   function tryPlaceWord(gridArr, size, norm) {
@@ -76,9 +93,9 @@
     return null;
   }
 
-  function generatePuzzle() {
+  function generatePuzzle(words) {
     const size = GRID_SIZE;
-    const normWords = WORDS.map(w => ({ display: w, norm: normalize(w) }))
+    const normWords = words.map(w => ({ display: w, norm: normalize(w) }))
       .sort((a, b) => b.norm.length - a.norm.length);
 
     for (let retry = 0; retry < 50; retry++) {
@@ -105,7 +122,8 @@
   }
 
   function buildBoard() {
-    const { gridArr, placed } = generatePuzzle();
+    currentWords = pickRoundWords();
+    const { gridArr, placed } = generatePuzzle(currentWords);
     grid = gridArr;
     placements = placed;
     foundWords = new Set();
@@ -129,22 +147,20 @@
     }
 
     wordListEl.innerHTML = '';
-    WORDS.forEach(w => {
+    currentWords.forEach(w => {
       const li = document.createElement('li');
       li.textContent = w;
       li.dataset.norm = normalize(w);
       wordListEl.appendChild(li);
     });
 
-    setupSelection();
+    anchor = null;
+    dragStarted = false;
+    moved = false;
+    currentPath = [];
   }
 
-  function setupSelection() {
-    let anchor = null;
-    let dragStarted = false;
-    let moved = false;
-    let currentPath = [];
-
+  function initSelection() {
     function cellFromPoint(x, y) {
       const el = document.elementFromPoint(x, y);
       if (!el || !el.classList.contains('cell')) return null;
@@ -180,7 +196,7 @@
       foundWords.add(norm);
       const li = wordListEl.querySelector(`li[data-norm="${norm}"]`);
       if (li) li.classList.add('found');
-      if (foundWords.size === WORDS.length) endGame(true);
+      if (foundWords.size === currentWords.length) endGame(true);
     }
 
     function evaluateSelection(path) {
@@ -286,6 +302,7 @@
     startTimer();
   }
 
+  initSelection();
   document.getElementById('btn-start').addEventListener('click', startGame);
   document.getElementById('btn-finish-win').addEventListener('click', () => showScreen('intro'));
   document.getElementById('btn-finish-lose').addEventListener('click', () => showScreen('intro'));
