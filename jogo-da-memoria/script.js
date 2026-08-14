@@ -46,7 +46,7 @@
         <div class="card-inner">
           <div class="card-face card-back">?</div>
           <div class="card-face card-front">
-            <img src="assets/cards/${name}.png" alt="${name}">
+            <img src="../assets/cards/${name}.png" alt="${name}">
           </div>
         </div>
       `;

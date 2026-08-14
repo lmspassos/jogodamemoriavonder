@@ -3,41 +3,40 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Jogo da Memória Vonder</title>
+<title>Jogos Vonder</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 <div class="app-frame">
 
-  <!-- TELA 1: ABERTURA -->
-  <section id="screen-intro" class="screen active" style="background-image:url('assets/screens/abertura.png');">
-    <button id="btn-start" class="hit-area" aria-label="Vamos jogar!"></button>
-  </section>
+  <section id="screen-select" class="screen active">
+    <img class="intro-top" src="assets/screens/abertura_top.png" alt="">
+    <div class="select-box">
+      <h1 class="select-title">ESCOLHA SEU JOGO!</h1>
+      <p class="select-subtitle">Desafie sua mente e concorra<br>a brindes Vonder!</p>
 
-  <!-- TELA 2: JOGO -->
-  <section id="screen-game" class="screen">
-    <div class="timer-pill">
-      <span class="timer-icon">⏱</span>
-      <span id="timer-text">00:30</span>
+      <a class="game-card" href="jogo-da-memoria/">
+        <span class="game-icon">🧠</span>
+        <span class="game-text">
+          <span class="game-name">Jogo da Memória</span>
+          <span class="game-desc">Encontre todos os pares e vença o tempo.</span>
+        </span>
+        <span class="game-arrow">›</span>
+      </a>
+
+      <a class="game-card" href="caca-palavras/">
+        <span class="game-icon">🔍</span>
+        <span class="game-text">
+          <span class="game-name">Caça-Palavras</span>
+          <span class="game-desc">Ache as palavras escondidas na grade.</span>
+        </span>
+        <span class="game-arrow">›</span>
+      </a>
     </div>
-
-    <div id="board" class="board"></div>
-
     <div class="stripe-bar"></div>
     <img class="footer-logo" src="assets/screens/footer_logo.png" alt="É bom trabalhar com vonder">
   </section>
 
-  <!-- TELA 3: VITÓRIA -->
-  <section id="screen-win" class="screen" style="background-image:url('assets/screens/ganhou.png');">
-    <button id="btn-finish-win" class="hit-area" aria-label="Finalizar"></button>
-  </section>
-
-  <!-- TELA 4: DERROTA -->
-  <section id="screen-lose" class="screen" style="background-image:url('assets/screens/perdeu.png');">
-    <button id="btn-finish-lose" class="hit-area" aria-label="Finalizar"></button>
-  </section>
-
 </div>
-<script src="script.js"></script>
 </body>
 </html>
