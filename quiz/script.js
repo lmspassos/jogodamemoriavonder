@@ -1,8 +1,8 @@
 (() => {
   const QUESTION_POOL = [
-    { question: 'Em que ano a Vonder lançou seu primeiro produto?', options: ['1995', '1997', '2003', '2010'], correct: 1 },
-    { question: 'Qual foi o primeiro produto lançado pela Vonder?', options: ['Furadeira de impacto', 'Trena a laser', 'Lubrificante em spray (VONDER LUB)', 'Parafusadeira a bateria'], correct: 2 },
-    { question: 'A Vonder é a principal marca de qual grupo?', options: ['Grupo Tramontina', 'Grupo OVD', 'Grupo Ferragens Brasil', 'Grupo Vonder Internacional'], correct: 1 },
+    { question: 'Em que ano a VONDER lançou seu primeiro produto?', options: ['1995', '1997', '2003', '2010'], correct: 1 },
+    { question: 'Qual foi o primeiro produto lançado pela VONDER?', options: ['Furadeira de impacto', 'Trena a laser', 'Lubrificante em spray (VONDER LUB)', 'Parafusadeira a bateria'], correct: 2 },
+    { question: 'A VONDER é a principal marca de qual grupo?', options: ['Grupo PFV', 'Grupo OVD', 'Grupo Brasil', 'Grupo VONDER'], correct: 1 },
     { question: 'Qual ferramenta é indicada para apertar ou soltar parafusos com fenda cruzada?', options: ['Alicate', 'Chave Phillips', 'Martelo', 'Trena'], correct: 1 },
     { question: 'Qual ferramenta é utilizada principalmente para fazer furos?', options: ['Furadeira', 'Lixadeira', 'Serra manual', 'Torquês'], correct: 0 },
     { question: 'Qual ferramenta é usada para medir comprimentos?', options: ['Esquadro', 'Trena', 'Alicate', 'Formão'], correct: 1 },
